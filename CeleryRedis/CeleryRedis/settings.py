@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     'paying',
 
-    'rest_framework',
+    # 'rest_framework',
 ]
 
 MIDDLEWARE = [
