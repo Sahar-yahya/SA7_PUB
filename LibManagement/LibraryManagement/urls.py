@@ -34,7 +34,7 @@ urlpatterns = [
 #BookViews
     path('books/', views.BookListView, name='books'),
     path('book/<int:pk>', views.BookDetailView, name='book-detail'),
-    path('search_b/', views.search_book, name="search_b"),
+    # path('search_b/', views.search_book, name="search_b"),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
