@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
+from django.db.models.signals import post_save
 
 # Create your models here.
 class Type(models.Model):
@@ -9,18 +11,25 @@ class Type(models.Model):
     def __str__(self):
         return self.name
 
+
+
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     type = models.ManyToManyField( Type , help_text="Select a type for this book")
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
-    describtion = models.TextField(max_length=1000, help_text="Enter a description of the book")
+    description = models.TextField(max_length=1000, help_text="Enter a description of the book")
     copies_num = models.IntegerField()
     available_copies = models.IntegerField()
     pic=models.ImageField(blank=True, null=True, upload_to='book_image')
 
     def __str__(self):
         return self.title
+
+
+    def get_absolute_url(self):
+        return reverse('book-detail', args=[str(self.id)])
+
 
 
 
@@ -30,8 +39,6 @@ class Language(models.Model):
 
     def __str__(self):
         return self.name
-
-
 
 
 
@@ -79,3 +86,16 @@ class Reviews(models.Model):
     )
 
     rating=models.CharField(max_length=3, choices=CHOICES, default='1')
+
+
+
+
+# post_save.connect(create_user, sender=Member)
+
+
+# def create_user(sender, *args, **kwargs):
+# if kwargs['created']:
+#     user = User.objects.create(username=kwargs['instance'],password="dummypass")
+
+
+

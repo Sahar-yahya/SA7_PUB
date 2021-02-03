@@ -29,21 +29,72 @@
 
 </head>
 <body>
-    <a class="navbar-brand" href="{% url 'home' %}">MY LIBRARY </a>
 
-
-
-    {% block content %}
-    {% endblock %}
+    <div class="container-fluid my-auto">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">MY LIBRARY </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
     
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'books' %}">Books</a>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                    </li>
+    
+    
+    
+            
+                    </li>
+                        {% if user.is_authenticated %}
+    <div class="dropdown float">
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+          {{ request.user }}
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'password_reset' %}">Reset Password</a>
+            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+        </div>
+      </div>
+                             {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+            {% endif %}
+                </ul>
+    
+            </div>
+        </nav>
+    
+    
+    
+        <br>
+        <div class="row mt-5 mx-auto">
+            <div class="col-sm-10">
+                {% block content %}{% endblock %}
+    
+    
+            </div>
+        </div>
+    
+    </div>
+
+  
 
 
 
 
        
-    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/particles.min.js' %}" ></script>
-    <script src="{% static 'script.js' %}"></script>
+    <script>
+            {% block javascript %}
+            {% endblock %}
+    </script>
 </body>
 
 
