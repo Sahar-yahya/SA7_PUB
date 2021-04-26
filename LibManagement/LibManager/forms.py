@@ -24,3 +24,16 @@ class MembertForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = '__all__'
+
+
+
+class MemberForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = '__all__'
+
+        
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Reviews
+        exclude=['member','book']

@@ -18,6 +18,8 @@ from django.urls import path , include
 from django.conf.urls.static import static
 from django.conf import settings
 from LibManager import views
+from LibManager.feed import LatestEntriesFeed
+
 
 
 admin.site.site_header = 'LIBRARYManagement '
@@ -34,7 +36,29 @@ urlpatterns = [
 #BookViews
     path('books/', views.BookListView, name='books'),
     path('book/<int:pk>', views.BookDetailView, name='book-detail'),
-    # path('search_b/', views.search_book, name="search_b"),
+    path('book/create/', views.BookCreate, name='book_create'),
+    path('book/<int:pk>/update/', views.BookUpdate, name='book_update'),
+    path('book/<int:pk>/delete/', views.BookDelete, name='book_delete'),
 
+# MemberViews 
+    path('member/<int:pk>/delete/', views.MemberDelete, name='member_delete'),
+    path('member/create/', views.MemberCreate, name='member_create'),
+    path('member<int:pk>/update/', views.MemberUpdate, name='member_update'),
+    path('member/<int:pk>', views.MemberDetail, name='member_detail'),
+    path('member/', views.MemberList, name='member_list'),
+    path('member/book_list', views.MemberBookListView, name='book_member'),
+    path('book/<int:pk>/request_issue/', views.Member_request_issue, name='request_issue'),    
+    
+#search 
+    path('search_b/', views.search_book, name="search_b"),
+    path('search_m/', views.search_member, name="search_m"),
+
+
+# Rating 
+
+    path('feed/', LatestEntriesFeed(), name='feed'),
+    path('return/<int:pk>', views.ret, name='ret'),
+    path('rating/<int:pk>/update/', views.RatingUpdate, name='rating_update'),
+    path('rating/<int:pk>/delete/', views.RatingDelete, name='rating_delete'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
